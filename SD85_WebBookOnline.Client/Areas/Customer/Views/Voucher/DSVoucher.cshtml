@@ -1,0 +1,178 @@
+﻿@using SD85_WebBookOnline.Share.Models
+
+@{
+    ViewData["Title"] = "DSVoucher";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    IEnumerable<Voucher> lstVoucherok = ViewBag.lstVoucherok as IEnumerable<Voucher>;
+}
+<style>
+    .container {
+        background-color: white;
+        text-align: center;
+        min-width: 100%;
+    }
+
+    .formvr {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .bannervr img {
+        width: 1000px;
+    }
+
+    .voucher {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .itemvoucher {
+        margin: 0 auto;
+        width: 500px;
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 0;
+    }
+
+    .image_voucher {
+        flex-grow: 3;
+        padding: 0px;
+        width: 150px;
+    }
+
+    .bgvr {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(251, 116, 5, 0.741);
+        height: 100%;
+        width: 100%;
+    }
+
+    .contenvr {
+        flex-grow: 7;
+    }
+
+    .thongtinvr {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+        .thongtinvr h4 {
+            text-align: left;
+        }
+
+    .hsdvr {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .giatrivr {
+        flex-grow: 8;
+        text-align: left;
+        padding-left: 40px;
+    }
+
+    .btn-click {
+        flex-grow: 2;
+    }
+
+        .btn-click button {
+            background-color: rgb(255, 102, 0);
+            padding: 0 30px;
+            border: 0;
+            color: aliceblue;
+        }
+
+    .datevr {
+        text-align: left;
+        flex-grow: 8;
+        padding: 0 40px;
+    }
+
+
+
+    .timeve label {
+        font-size: 15px;
+    }
+
+    .chitietvr {
+        flex-grow: 2;
+    }
+</style>
+
+<div class="container">
+
+    <div class="container">
+
+        <div class="formvr">
+
+            <div class="voucher">
+                <h3>Voucher giảm giá</h3>
+                @foreach (var vrsf in lstVoucherok)
+                {
+                    <div class="itemvoucher flex-container">
+                        <div class="image_voucher">
+                            <div class="bgvr">
+                                <img src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/ico_promotion.svg?q=10294" alt="">
+                            </div>
+                        </div>
+                        <div class="contenvr">
+                            <div class="thongtinvr flex-container">
+                                <div class="giatrivr ">
+                                    <h4>@vrsf.Name</h4>
+                                    <label class="codeLabel">@vrsf.code</label>
+                                    <label for="">@vrsf.Description</label>
+                                </div>
+                                <div class="btn-click">
+                                    <button onclick="copyText('.codeLabel', this)">Copy</button>
+                                </div>
+                            </div>
+                            <div class="hsdvr">
+                                <div class="datevr flex-container">
+                                    <div class="quantity">
+                                        <small>@vrsf.Quantity</small>
+                                    </div>
+                                    <div class="timeve">
+                                        <label for="">@vrsf.EndDate</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function copyText(selector, button) {
+        // Lấy nội dung của label dựa trên selector
+        var labelContent = $(button).closest('.thongtinvr').find(selector).text();
+
+        // Tạo một input tạm để chứa nội dung cần sao chép
+        var tempInput = document.createElement("input");
+        tempInput.value = labelContent;
+
+        // Thêm input vào body để có thể chọn và sao chép nó
+        document.body.appendChild(tempInput);
+
+        // Chọn toàn bộ nội dung trong input
+        tempInput.select();
+
+        // Sao chép nội dung vào clipboard
+        document.execCommand("copy");
+
+        // Xóa input ẩn
+        document.body.removeChild(tempInput);
+
+        // Thông báo copy thành công (có thể sử dụng cách thông báo khác)
+        alert("Đã sao chép mã giảm giá: " + labelContent);
+    }
+</script>

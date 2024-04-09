@@ -1,0 +1,106 @@
+﻿@using SD85_WebBookOnline.Share.Models
+
+@{
+    ViewData["Title"] = "Book_AllRating";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IEnumerable<User> ListUser = ViewBag.ListUser as IEnumerable<User>;
+    IEnumerable<Rating> lstRating = ViewBag.lstRating as IEnumerable<Rating>;
+}
+
+<h1>Book_AllRating</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            
+            <th>
+                Người dùng
+            </th>
+            <th>
+                Bình luận
+            </th>
+            <th>
+                Đánh giá
+            </th>
+            <th>
+                Ngày đánh giá
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in lstRating) {
+        <tr>
+            
+            <td>
+                    @(item.IdNguoiDung != null
+                        ? ListUser.FirstOrDefault(c => c.Id == item.IdNguoiDung)?.UserName : "")
+            </td>
+            <td>
+                @item.Comment
+            </td>
+            <td>
+                    @if (item.Stars == 1)
+                    {
+                    <div class="text-primary mb-2">
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    }
+                    @if (item.Stars == 2)
+                    {
+                        <div class="text-primary mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    }
+                    @if (item.Stars == 3)
+                    {
+                        <div class="text-primary mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    }
+                    @if (item.Stars == 4)
+                    {
+                        <div class="text-primary mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    }
+                    @if (item.Stars == 5)
+                    {
+                        <div class="text-primary mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    }
+            </td>
+            <td>
+                @item.RatingDate
+            </td>
+            
+            
+        </tr>
+}
+    </tbody>
+</table>

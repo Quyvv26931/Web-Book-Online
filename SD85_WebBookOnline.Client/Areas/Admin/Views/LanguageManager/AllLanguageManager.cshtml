@@ -1,0 +1,115 @@
+﻿@using SD85_WebBookOnline.Share.Models;
+@model IEnumerable<SD85_WebBookOnline.Share.Models.Languge>
+
+@{
+    IEnumerable<Languge> lstLanguage = ViewBag.listLanguage as IEnumerable<Languge>;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js" integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="~/js/Language.js"></script>
+<h1>Quản Lý Ngôn Ngữ Sách</h1>
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card">
+
+            <div class="card-header">
+                Bạn Muốn Thêm Mới
+                <button class="btn btn-primary" type="button" id="btn_add">Thêm mới</button>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    Search
+                    @using (Html.BeginForm("AllLangugeManager", "LangugeManager", FormMethod.Get))
+                    {
+                        <input type="text" name="txtSearch" placeholder="Search!" />
+                        <button type="submit" class="btn btn-warning">Search</button>
+                    }
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên Ngôn Ngữ</th>
+                            <th>Mô Tả</th>
+                            <th>TRạng Thái</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int i = 1;
+
+                        }
+                        @foreach (var item in lstLanguage)
+                        {
+
+                            <tr>
+                                <td>@i</td>
+                                <td>@item.Name</td>
+                                <td>@item.Description</td>
+                                @if (item.Status == 1)
+                                {
+                                    <td>Đang Hoạt Động</td>
+                                }
+                                @if (item.Status != 1)
+                                {
+                                    <td>Ngưng Hoạt Động</td>
+                                }
+                                <td>
+                                   <button class="btn btn-primary" type="button" id="btn_chitiet" data-id="@item.LangugeID">Xem Chi tiết</button>                                  
+                                </td>
+
+                            </tr>
+                            i++;
+                        }
+                    </tbody>
+
+                </table>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" id="pp_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <div class="col-md-12">
+           <input id="btn_ID" style="display:none" class="form-control" type="text" />
+       </div>
+       <div class="col-md-12">
+           <label for="btn_name">Name</label>
+           <input id="btn_name" class="form-control" type="text" />
+       </div>
+       <div class="col-md-12">
+           <label for="btn_Description">Description</label>
+           <input id="btn_Description" class="form-control" type="text" />
+       </div>
+        <div class="col-md-12">
+           <label for="btn_Status">Status</label>
+           <input id="btn_Status" class="form-control" type="text" />
+       </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="btn_save">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
